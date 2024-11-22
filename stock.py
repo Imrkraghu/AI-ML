@@ -2,29 +2,32 @@
 # given the data of days prize where buy at lowest and sell at highest 
 # input will be given as the list
 #function to check if the stock could be bought
-def stock(list,n):
-    buy =list[0]
-    for i in range(len(list)):
-        if(list[i]<buy):
-            buy = list[i]
-        else:
-            i += 1
-    if(buy==list[n-1]):
-        print("can't buy this stock")
+def stock(prices):
+    if not prices:
+        print("Empty price list. Cannot determine buy/sell.")
+        return
+
+    # Initialize variables to track the minimum price and maximum profit
+    min_price = prices[0]
+    max_profit = 0
+
+    for price in prices:
+        # Update the minimum price if a lower price is found
+        if price < min_price:
+            min_price = price
+
+        # Calculate the profit if selling at the current price
+        profit = price - min_price
+
+        # Update the maximum profit if the current profit is higher
+        if profit > max_profit:
+            max_profit = profit
+
+    if max_profit == 0:
+        print("No profitable transaction possible.")
     else:
-        stocksell(buy,list)
-def stocksell(buy,list):
-    sell= list[0]
-    for i in range(len(list)):
-        if(list[i]>sell):
-            sell = list[i]
-        else:
-            i += 1
-    if(buy>=sell):
-        print("can't buy this stock")
-    else:
-        profit = sell - buy
-        print(f"profit is {profit}")
+        print(f"Maximum profit is {max_profit}")
+
 def inputdata():
     listdata = []
     print("this is a program which will decide wether to buy a stock or not based on the price history ")
@@ -32,5 +35,5 @@ def inputdata():
     for i in range(0,n):
         ele = int(input( ))
         listdata.append(ele)
-    stock(listdata,n)
+    stock(listdata)
 inputdata()
