@@ -14,10 +14,15 @@ def subarray(list,target):
     return None
 def userinput():
     list1 = []
-    n = input("enter the number of data elements: ")
-    for i in len(n):
+    n = int(input("enter the number of data elements: "))
+    for i in range(n):
         x= int(input("enter the element: "))
-        list1[i].append(x)
+        list1.append(x)
     target = int(input("enter the target number"))
-    subarray(list1,target)
-userinput()
+    return list1, target
+list1, target = userinput()
+result = subarray(list1, target)
+if result:
+    print(f"subarray with sum {target} found at indices: {result}")
+else:
+    print(f"No subarray wiith sum {target} found.")
